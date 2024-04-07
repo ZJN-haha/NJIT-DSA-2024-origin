@@ -1,77 +1,248 @@
 package oy.tol.tra;
 
-/**
- * A generic interface to linked list class.
- * This has already been implemented for you, so need to implement this. 
- */
-public interface LinkedListInterface<E> {
-   
-   /**
-    * Add an element to the end of the list.
-    * @param element The element to add, must not be null.
-    * @throws NullPointerException If the parameter element is null.
-    * @throws LinkedListAllocationException If failed to allocate a new list element.
-    */
-   public void add(E element) throws NullPointerException, LinkedListAllocationException;
+public class LinkedListImplementation<E> implements LinkedListInterface<E> {
 
-   /**
-    * Add an element to the specified index in the list.
-    * @param index The index where to add the element, must be 0...count().
-    * @param element The element to add, must not be null.
-    * @throws NullPointerException If the parameter element is null.
-    * @throws LinkedListAllocationException If failed to allocate a new list element.
-    * @throws IndexOutOfBoundsException If the specified index to the list is out of bounds.
-    */
-    public void add(int index, E element) throws NullPointerException, LinkedListAllocationException, IndexOutOfBoundsException;
+    private class Node<T> {
+        Node(T data) {
+            element = data;
+            next = null;
+        }
+        T element;
+        Node<T> next;
+        @Override
+        public String toString() {
+            return element.toString();
+        }
+    }
 
-   /**
-    * Removes an element from the list. Element must not be null.
-    * @return True if element was found and removed, false otherwise.
-    * @throws NullPointerException If the parameter element is null.
-    */
-    public boolean remove(E element) throws NullPointerException;
+    private Node<E> head = null;
+    private int size = 0;
 
-   /**
-    * Removes an element from the list.
-    * @param index The index of the element to remove.
-    * @return Returns the element which was found and removed, null otherwise.
-    * @throws IndexOutOfBoundsException If the specified index to the list is out of bounds.
-    */
-    public E remove(int index) throws IndexOutOfBoundsException;
+    @Override
+    public void add(E element) throws NullPointerException, LinkedListAllocationException {
+        if (null == element) {
+            throw new NullPointerException("Element to add must not be null");
+        }
+        try {
+            if (null == head) {
+                head = new Node<E>(element);
+            } else {
+                Node<E> current = head;
+                while (null != current.next) {
+                    current = current.next;
+                }
+                current.next = new Node<>(element);
+            }
+            size++;
+        } catch (Exception e) {
+            throw new LinkedListAllocationException(e.getMessage());
+        }
+    }
 
-    /**
-    * Returns the element at the index, not removing it from the list.
-    * If index < 0 or >= size(), throws IndexOutOfBoundsException.
-    * @return The element in the specified index.
-    * @throws IndexOutOfBoundsException If the specified index to the list is out of bounds.
-    */
-   public E get(int index) throws IndexOutOfBoundsException;
+    @Override
+    public void add(int index, E element) throws NullPointerException, LinkedListAllocationException, IndexOutOfBoundsException {
+        if (null == element) {
+            throw new NullPointerException("Element to add must not be null");
+        }
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Invalid index to the list");
+        }
+        try {
+            if (index == 0) {
+                Node<E> newHead = new Node<>(element);
+                newHead.next = head;
+                head = newHead;
+                size++;
+            } else {
+                int counter = 1;
+                Node<E> current = head.next;
+                Node<E> previous = head;
+                while (null != current) {
+                    if (counter == index) {
+                        previous.next = new Node<>(element);
+                        previous.next.next = current;
+                        size++;
+                        break;
+                    }
+                    counter++;
+                    previous = current;
+                    current = current.next;
+                }
+            }
+        } catch (Exception e) {
+            throw new LinkedListAllocationException(e.getMessage());
+        }
+    }
 
-   /**
-    * Queries the index of the element in the list.
-    * @param element The element to search for, must not be null.
-    * @return The index of the element, or -1 if it was not found.
-    * @throws NullPointerException If the parameter element is null.
-    */
-   public int indexOf(E element) throws NullPointerException;
+    @Override
+    public boolean remove(E element) throws NullPointerException {
+        if (null == element) {
+            throw new NullPointerException("Element parameter must not be null");
+        }
+        if (null == head) {
+            return false;
+        }
+        boolean result = false;
+        // First check if the head is the one, easier this way.
+        if (head.element.equals(element)) {
+            Node<E> oldHead = head;
+            head = oldHead.next;
+            oldHead = null;
+            result = true;
+        } else {
+            Node<E> current = head.next;
+            Node<E> previous = head;
+            while (null != current) {
+                if (current.element.equals(element)) {
+                    previous.next = current.next;
+                    current = null;
+                    result = true;
+                    break;
+                }
+                previous = current;
+                current = current.next;
+            }
+        }
+        if (result) {
+            size--;
+        }
+        return result;
+    }
 
-   /**
-    * Returns the count of elements currently in the list.
-    * Note that this method must perform in O(1).
-    * @return Count of elements in the list.
-    */
-   public int size();
+    @Override
+    public E remove(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Invalid index to the list");
+        }
+        E removed = null;
+        if (index == 0) {
+            removed = head.element;
+            head = head.next;
+        } else {
+            int counter = 1;
+            Node<E> current = head.next;
+            Node<E> previous = head;
+            while (null != current) {
+                if (counter == index) {
+                    removed = current.element;
+                    previous.next = current.next;
+                    current = null;
+                    break;
+                }
+                counter++;
+                previous = current;
+                current = current.next;
+            }
+        }
+        if (null != removed) {
+            size--;
+        }
+        return removed;
+    }
 
-   /**
-    * Resets the list to an empty list.
-    * Note that this method must perform in O(1).
-    */
-   public void clear();
+    @Override
+    public E get(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Invalid index to the list");
+        }
+        if (null == head) {
+            return null;
+        }
+        int counter = 0;
+        Node<E> current = head;
+        while (null != current) {
+            if (counter == index) {
+                return current.element;
+            }
+            counter++;
+            current = current.next;
+        }
+        return null;
+    }
 
-   // TODO: implement this in the 2nd task of the exercise.
-   /**
-    * Reverses the items in the list to opposite order.
-    * Reversal happens in place; so the old order in this list is reversed.
-    */
-    public void reverse();
+    @Override
+    public int indexOf(E element) throws NullPointerException {
+        if (null == element) {
+            throw new NullPointerException("Element parameter must not be null");
+        }
+        if (null == head) {
+            return -1;
+        }
+        int index = -1;
+        if (head.element.equals(element)) {
+            index = 0;
+        } else {
+            boolean found = false;
+            Node<E> current = head.next;
+            index = 1;
+            while (null != current) {
+                if (current.element.equals(element)) {
+                    found = true;
+                    break;
+                }
+                index++;
+                current = current.next;
+            }
+            if (!found) {
+                index = -1;
+            }
+        }
+        return index;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public void clear() {
+        head = null;
+        size = 0;
+    }
+
+    // NOTE! You do not need to pay attention to this method.
+    // You do not need to do anything here, but do not delete it.
+    @Override
+    public void reverse() {
+        if (null == head || null == head.next) {
+            return;
+        }
+        // We come here only if head is not null and next neither,
+        // so list has at least two elements. Therefore safe to assume head.next
+        // is a valid reference.
+        Node<E> current = head.next;
+        Node<E> previous = head;
+        Node<E> oldNext = null;
+        head.next = null;
+        while (null != current) {
+            oldNext = current.next;
+            current.next = previous;
+            if (null == oldNext) {
+                head = current;
+                break;
+            } else {
+                previous = current;
+                current = oldNext;
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("[");
+        if (null != head) {
+            Node<E> current = head;
+            while (null != current) {
+                builder.append(current.toString());
+                if (null != current.next) {
+                    builder. append(", ");
+                }
+                current = current.next;
+            }
+        }
+        builder.append("]");
+        return builder.toString();
+    }
+
 }

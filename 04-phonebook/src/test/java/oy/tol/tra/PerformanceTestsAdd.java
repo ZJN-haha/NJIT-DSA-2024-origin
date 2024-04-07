@@ -48,7 +48,7 @@ public class PerformanceTestsAdd {
 
 	@Test
 	@Order(1)
-	//@Timeout(value = 600, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
+		//@Timeout(value = 600, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
 	void handleReadTestFilesWithBST() {
 		if (null != writer) {
 			try {
@@ -95,7 +95,7 @@ public class PerformanceTestsAdd {
 
 	@Test
 	@Order(2)
-	//@Timeout(value = 600, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
+		//@Timeout(value = 600, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
 	void handleReadTestFilesWithHashTable() {
 		if (null != writer) {
 			try {
@@ -153,13 +153,13 @@ public class PerformanceTestsAdd {
 		BufferedReader phoneBookReader = new BufferedReader(new FileReader(fileName, StandardCharsets.UTF_8));
 		String line;
 		while ((line = phoneBookReader.readLine()) != null && line.length() > 0) {
-			 String personElements[] = line.split(",");
-			 if (personElements.length == 5) {
-				  Person person = new Person(personElements[0], personElements[1]);
-				  PhoneNumber number = new PhoneNumber(personElements[2], personElements[3], personElements[4]);
-				  toPhoneBook.add(person, number);
-			 }
+			String personElements[] = line.split(",");
+			if (personElements.length == 5) {
+				Person person = new Person(personElements[0], personElements[1]);
+				PhoneNumber number = new PhoneNumber(personElements[2], personElements[3], personElements[4]);
+				toPhoneBook.add(person, number);
+			}
 		}
 		phoneBookReader.close();
-  }
+	}
 }

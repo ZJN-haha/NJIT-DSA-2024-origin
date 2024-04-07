@@ -1,62 +1,78 @@
 package oy.tol.tra;
 
-/**
- * Class Pair defines a key-value -pair of objects where each key has an
- * associated value.
- * 
- * Keys must implement the Comparable interface. Equality is determined by
- * comparing keys.
- */
-public class Pair<K extends Comparable<K>, V> implements Comparable<Pair<K, V>> {
-   private K key;
-   private V value;
+public class Person implements Comparable<Person> {
+   private String firstName;
+   private String lastName;
 
-   public Pair(K key, V value) {
-      this.key = key;
-      this.value = value;
+   public Person(final Person person) {
+      this.firstName = new String(person.firstName);
+      this.lastName = new String(person.lastName);
    }
 
-   public K getKey() {
-      return key;
+   public Person(String firstName, String lastName) {
+      this.firstName = firstName;
+      this.lastName = lastName;
    }
 
-   public void setKey(K key) {
-      this.key = key;
+   public String getLastName() {
+      return lastName;
    }
 
-   public V getValue() {
-      return value;
+   public String getFirstName() {
+      return firstName;
    }
 
-   public void setValue(V value) {
-      this.value = value;
+   public String getFullName() {
+      return lastName + " " + firstName;
    }
 
    @Override
-   public int compareTo(Pair<K, V> o) {
-      return key.compareTo(o.key);
+   public String toString() {
+      return getFullName();
+   }
+
+   /**
+    * TODO: Implement the method below to return a hash value. It must be calculated from the
+    * first and last name of the person.
+    *
+    * @return Hash value of the person.
+    */
+   @Override
+   public int hashCode() {
+      int hash = 0;
+      String name = getFullName();
+      int i = 0;
+      for( i = 0;i<name.length();i++){
+         hash = 37*hash +name.charAt(i);
+      }
+      // Implement hash function here.
+
+      return Math.abs(hash);
    }
 
    @Override
-   public boolean equals(Object obj) {
-      if (this == obj) {
-         return true;
+   public boolean equals(Object other) {
+      if (other instanceof Person) {
+         return this.getFullName().equals(((Person)other).getFullName());
       }
-      if (obj == null) {
-         return false;
-      }
-      if (getClass() != obj.getClass()) {
-         return false;
-      }
-      Pair<?,?> other = (Pair<?,?>) obj;
-      if (key == null) {
-         if (other.key != null) {
-            return false;
-         }
-      } else if (!key.equals(other.key)) {
-         return false;
-      }
-      return true;
+      return false;
    }
 
+   /**
+    * Compares two persons, this and the other one.
+    * <p>
+    * In a phonebook, persons are identified by the last and first names.
+    * So if a person is the same or another, depends on if they have
+    * the same name. You can use String.compareTo in implementing this.
+    * <p>
+    * Return <0 if the person's full name (as string) is smaller than the other's.
+    * Return 0 if the full name is identical.
+    * Return >0 if the other persons full name is larger (as string).
+    * Note: String class also implements <code>compareTo()</code> you can use here.
+    * @returns Returns 0 if persons are the same otherwise depending on the full name, <0 or >0.
+    */
+   @Override
+   public int compareTo(Person other) {
+      return getFullName().compareTo(other.getFullName());
+   }
 }

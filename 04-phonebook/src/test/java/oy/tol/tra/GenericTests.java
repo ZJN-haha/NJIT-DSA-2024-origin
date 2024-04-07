@@ -40,7 +40,7 @@ public class GenericTests {
         try {
             slowArray = new KeyValueArray<>(25);
             fastHashTable = new KeyValueHashTable<>(25);
-            fastBST = new KeyValueBSearchTree<>();    
+            fastBST = new KeyValueBSearchTree<>();
         } catch (Exception e) {
             e.printStackTrace();
             fail("Could not instantiate some of the Dictionary implementations");
@@ -74,14 +74,14 @@ public class GenericTests {
             Arrays.sort(originalArray);
             for (int index = 0; index < TEST_COUNT; index++) {
                 assertTrue(originalArray[index].equals(array[index].getKey()), () -> "Array elements do not match");
-            }    
+            }
             int elements = slowArray.size();
             assertDoesNotThrow(() -> slowArray.compress(), () -> "Compressing the storage should not throw");
             assertEquals(elements, slowArray.size(), () -> "After compression must have same number of elements than before");
             assertDoesNotThrow(() -> array = slowArray.toSortedArray(), "toSortedArray must not throw");
             for (int index = 0; index < TEST_COUNT; index++) {
                 assertTrue(originalArray[index].equals(array[index].getKey()), () -> "Array elements do not match");
-            }    
+            }
         } catch (Exception e) {
             e.printStackTrace();
             fail("Something went wrong in the test." + e.getMessage());
@@ -125,7 +125,7 @@ public class GenericTests {
             for (int index = 0; index < TEST_COUNT; index++) {
                 assertNotNull(array[index], () -> "array from toSortedArray must not contain null elements");
                 assertTrue(originalArray[index].equals(array[index].getKey()), () -> "Array elements do not match");
-            }    
+            }
             int elements = fastHashTable.size();
             assertDoesNotThrow(() -> fastHashTable.compress(), () -> "Compressing the storate should not throw");
             assertEquals(elements, fastHashTable.size(), () -> "After compression must have same number of elements than before");
@@ -135,7 +135,7 @@ public class GenericTests {
             for (int index = 0; index < TEST_COUNT; index++) {
                 assertNotNull(array[index], () -> "array from toSortedArray must not contain null elements");
                 assertTrue(originalArray[index].equals(array[index].getKey()), () -> "Array elements do not match");
-            }    
+            }
         } catch (Exception e) {
             e.printStackTrace();
             fail("Something went wrong in the test." + e.getMessage());

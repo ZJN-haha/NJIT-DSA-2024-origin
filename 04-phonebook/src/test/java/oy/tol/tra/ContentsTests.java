@@ -28,13 +28,13 @@ public class ContentsTests {
 	static boolean testResult;
 	static PhoneNumber foundValue;
 	static final Person [] persons = {
-		new Person("A", "A"),
-		new Person("Baba", "Betty"),
-		new Person("Carl Erik", "Carlsson-Möttönen"),
-		new Person("Antti", "Juustila"),
-		new Person("Kimba", "Kimberlay"),
-		new Person("Pat", "Patterson-Bradley"),
-		new Person("Ziba", "Zum")
+			new Person("A", "A"),
+			new Person("Baba", "Betty"),
+			new Person("Carl Erik", "Carlsson-Möttönen"),
+			new Person("Antti", "Juustila"),
+			new Person("Kimba", "Kimberlay"),
+			new Person("Pat", "Patterson-Bradley"),
+			new Person("Ziba", "Zum")
 	};
 	static Pair<Person,PhoneNumber> [] array;
 

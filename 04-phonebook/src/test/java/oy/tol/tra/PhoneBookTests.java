@@ -35,7 +35,7 @@ public class PhoneBookTests {
 
     // Test classes
     static Map<Person, PhoneNumber> testPersons = new HashMap<>();
-    static Person[] persons = null; 
+    static Person[] persons = null;
 
     static boolean didRunSlowPhoneBookTests = false;
     static boolean didRunHashTableBookTests = false;
@@ -48,7 +48,7 @@ public class PhoneBookTests {
     static long fastHashTableSearchTime = 0;
     static long fastBSTSearchTime = 0;
 
-    @BeforeAll 
+    @BeforeAll
     static void createDataStructures() {
         System.out.println("Preparing data structures for tests...");
         slowPhoneBook = new KeyValueArray<>();
@@ -87,7 +87,7 @@ public class PhoneBookTests {
             System.out.println("Searching persons not in the phonebooks...");
             assertNull(slowPhoneBook.find(new Person("Antti", "Juustila")), () -> "Should return null when person is not in the phonebook");
             assertNull(slowPhoneBook.find(new Person("Pertti", "Karhapää")), () -> "Should return null when person is not in the phonebook");
-            assertNull(slowPhoneBook.find(new Person("Jouni", "Lappalainen")), () -> "Should return null when person is not in the phonebook");    
+            assertNull(slowPhoneBook.find(new Person("Jouni", "Lappalainen")), () -> "Should return null when person is not in the phonebook");
             didRunSlowPhoneBookTests = true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,9 +121,9 @@ public class PhoneBookTests {
                 }
                 assertNull(fastBSTPhoneBook.find(new Person("Antti", "Juustila")), () -> "BST: should return null when person is not in the phonebook");
                 assertNull(fastBSTPhoneBook.find(new Person("Pertti", "Karhapää")), () -> "BST: should return null when person is not in the phonebook");
-                assertNull(fastBSTPhoneBook.find(new Person("Jouni", "Lappalainen")), () -> "BST: should return null when person is not in the phonebook");    
-    
-                didRunBSTBookTests = true;    
+                assertNull(fastBSTPhoneBook.find(new Person("Jouni", "Lappalainen")), () -> "BST: should return null when person is not in the phonebook");
+
+                didRunBSTBookTests = true;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,7 +141,7 @@ public class PhoneBookTests {
                 System.out.println("Reading test data from file to Hashtable, please wait...");
                 long start = System.nanoTime();
                 readPersonsFromFile(fastHashTablePhoneBook);
-                readingToHashTablePhoneBook = System.nanoTime() - start;    
+                readingToHashTablePhoneBook = System.nanoTime() - start;
                 assertEquals(ENTRY_COUNT, fastHashTablePhoneBook.size(), "All persons were not added to the Hashtable phonebook");
 
                 System.out.println(">> Testing Hashtable phonebook with " + fastHashTablePhoneBook.size() + " entries");
@@ -158,9 +158,9 @@ public class PhoneBookTests {
                 }
                 assertNull(fastHashTablePhoneBook.find(new Person("Antti", "Juustila")), () -> "Hashtable: should return null when person is not in the phonebook");
                 assertNull(fastHashTablePhoneBook.find(new Person("Pertti", "Karhapää")), () -> "Hashtable: should return null when person is not in the phonebook");
-                assertNull(fastHashTablePhoneBook.find(new Person("Jouni", "Lappalainen")), () -> "Hashtable: should return null when person is not in the phonebook");    
-    
-                didRunHashTableBookTests = true;   
+                assertNull(fastHashTablePhoneBook.find(new Person("Jouni", "Lappalainen")), () -> "Hashtable: should return null when person is not in the phonebook");
+
+                didRunHashTableBookTests = true;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -168,7 +168,7 @@ public class PhoneBookTests {
         }
     }
 
-    @AfterAll 
+    @AfterAll
     //@Timeout(value = 90, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
     static void printStatistics() {
         System.out.println("Waiting for all the tests to finish...");
@@ -272,5 +272,5 @@ public class PhoneBookTests {
         }
         phoneBookReader.close();
     }
-  
+
 }
