@@ -235,7 +235,7 @@ public class StackTests {
 
     /**
      * Utility method to create a list with random test data.
-     * 
+     *
      * @param itemCount Number of items to put into the testa data list.
      * @return A list of test data to use with the test stack.
      */

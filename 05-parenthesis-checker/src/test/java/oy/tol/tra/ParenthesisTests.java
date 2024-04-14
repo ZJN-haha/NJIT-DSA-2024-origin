@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Timeout;
 
 /**
  * Tests for checking if structured parenthesis in a string match correctly.
- * 
+ *
  */
 @DisplayName("Testing the stack with two structured files with parentheses.")
 public class ParenthesisTests {
@@ -31,7 +31,7 @@ public class ParenthesisTests {
          StackInterface<Character> stackToTest = StackFactory.createCharacterStack(10);
          assertNotNull(stackToTest, "StackFactory failed to create the stack object");
          assertDoesNotThrow(() -> result = ParenthesisChecker.checkParentheses(stackToTest, toCheck),
-               "String \"{ ( [ ] ) }\" is valid so must not throw");
+                 "String \"{ ( [ ] ) }\" is valid so must not throw");
          assertEquals(6, result, () -> "Parentheses count did not match with expected.");
          assertTrue(stackToTest.isEmpty(), () -> "Stack must be empty when finished.");
       } catch (Exception e) {
@@ -48,7 +48,7 @@ public class ParenthesisTests {
          StackInterface<Character> stackToTest = StackFactory.createCharacterStack(10);
          assertNotNull(stackToTest, "StackFactory failed to create the stack object");
          assertThrows(ParenthesesException.class, () -> result = ParenthesisChecker.checkParentheses(stackToTest, toCheck),
-               "String \"{ ( { ] ) }\" is invalid so checker must throw");
+                 "String \"{ ( { ] ) }\" is invalid so checker must throw");
       } catch (Exception e) {
          fail("Unexpected exception in test: " + e.getMessage());
       }
@@ -63,7 +63,7 @@ public class ParenthesisTests {
          StackInterface<Character> stackToTest = StackFactory.createCharacterStack(10);
          assertNotNull(stackToTest, "StackFactory failed to create the stack object");
          assertThrows(ParenthesesException.class, () -> result = ParenthesisChecker.checkParentheses(stackToTest, toCheck),
-               "String \"{ ( { ] ) }\" is invalid so checker must throw");
+                 "String \"{ ( { ] ) }\" is invalid so checker must throw");
       } catch (Exception e) {
          fail("Unexpected exception in test: " + e.getMessage());
       }
@@ -82,7 +82,7 @@ public class ParenthesisTests {
          StackInterface<Character> stackToTest = StackFactory.createCharacterStack(10);
          assertNotNull(stackToTest, "StackFactory failed to create the stack object");
          assertDoesNotThrow(() -> result = ParenthesisChecker.checkParentheses(stackToTest, toCheck),
-               "SSN.java is valid so must not throw");
+                 "SSN.java is valid so must not throw");
          assertEquals(72, result, () -> "Parentheses count did not match with expected.");
          assertTrue(stackToTest.isEmpty(), () -> "Stack must be empty when finished.");
       } catch (IOException e) {
@@ -104,7 +104,7 @@ public class ParenthesisTests {
          StackInterface<Character> stackToTest = StackFactory.createCharacterStack(10);
          assertNotNull(stackToTest, "StackFactory failed to create the stack object");
          assertThrows(ParenthesesException.class, () -> result = ParenthesisChecker.checkParentheses(stackToTest, toCheck),
-               "Person.json is invalid JSON so must throw");
+                 "Person.json is invalid JSON so must throw");
       } catch (IOException e) {
          fail("Cannot read the test file " + e.getMessage());
       }
@@ -120,7 +120,7 @@ public class ParenthesisTests {
          StackInterface<Character> stackToTest = StackFactory.createCharacterStack(10);
          assertNotNull(stackToTest, "StackFactory failed to create the stack object");
          assertThrows(ParenthesesException.class, () -> result = ParenthesisChecker.checkParentheses(stackToTest, toCheck),
-               "Person2.json is invalid JSON so must throw");
+                 "Person2.json is invalid JSON so must throw");
       } catch (IOException e) {
          fail("Cannot read the test file " + e.getMessage());
       }
