@@ -31,13 +31,13 @@ import org.junit.jupiter.api.Order;
  */
 @DisplayName("Basic tests for the QueueImplementation class.")
 @TestMethodOrder(OrderAnnotation.class)
- public class QueueTests 
+public class QueueTests
 {
     static Random randomizer = null;
     static final int MIN_QUEUE_SIZE = 10;
     static final int MAX_QUEUE_SIZE = 100;
     static int toAdd = 0;
-    
+
     /**
      * Initialize the test.
      */
@@ -176,7 +176,7 @@ import org.junit.jupiter.api.Order;
         queueToTest.clear();
         assertTrue(queueToTest.isEmpty(), () -> "The queue should be empty.");
         assertThrows(QueueIsEmptyException.class, () -> queueToTest.dequeue(), "After resetting a queue, dequeue must throw QueueIsEmptyException.");
-        assertEquals(0, queueToTest.size(), () -> "After resetting a queue, count must return zero.");        
+        assertEquals(0, queueToTest.size(), () -> "After resetting a queue, count must return zero.");
     }
 
     @Test
@@ -209,7 +209,7 @@ import org.junit.jupiter.api.Order;
         int queueSize = randomQueueSize();
         QueueInterface<Integer> queueToTest = QueueFactory.createIntegerQueue(queueSize);
         assertEquals("[]", queueToTest.toString(), () -> "Empty queue must print out as \"[]\"");
-        
+
         assertDoesNotThrow(() -> queueToTest.enqueue(42), "In this test enqueue must succeed, but failed");
         assertEquals("[42]", queueToTest.toString(), () -> "Queue with one value to string fails");
         // Fill the queue to contain max number of items.
@@ -287,7 +287,7 @@ import org.junit.jupiter.api.Order;
         assertEquals("[First, Second, Third, Fourth]", queue.toString(), () -> "Queue as string must match test data.");
         // Queue now has "[First, Second, Third, Fourth]"
         // Dequeued values not needed, so no variables here to avoid warnings about unused objects.
-        queue.dequeue(); 
+        queue.dequeue();
         queue.dequeue();
         // And now it should have "[Third, Fourth]"
         queue.enqueue("fifth");
@@ -320,7 +320,7 @@ import org.junit.jupiter.api.Order;
         queue.enqueue(6);
         assertEquals("[4, 5, 6]", queue.toString(), "Not expected output from toString");
     }
-    
+
     /**
      * Utility method to create a random size queue.
      * @param itemCount
